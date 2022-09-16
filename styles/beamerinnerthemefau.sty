@@ -1,0 +1,222 @@
+% ..............................................................................
+% The inner beamer theme accoridng to the FAU corporate style guide 2021, see 
+%
+% https://www.intern.fau.de/kommunikation-marketing-und-corporate-identity/corporate-identity/
+%
+%
+% Copyright 2022 by Tim Roith <tim.roith@fau.de>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+%
+% ------------------------------------------------------------------------------
+
+\ProvidesPackage{styles/beamerinnerthemefau}
+
+\RequirePackage[percent]{overpic}
+
+\newdimen\fau@inner@WordMarkTitleHeight
+\newdimen\fau@inner@WordMarkTitleWidth
+\newdimen\fau@inner@TitleTitleSkip
+\newdimen\fau@inner@HeaderHeight
+\newdimen\fau@inner@TitleHeight
+\newdimen\fau@inner@TitleLineHeight
+
+% ------------------------------------------------------------------------------
+\DeclareOptionBeamer{WordMarkTitleHeight}{\fau@inner@WordMarkTitleHeight=#1}
+\DeclareOptionBeamer{WordMarkTitleWidth}{\fau@inner@WordMarkTitleWidth=#1}
+\DeclareOptionBeamer{TitleTitleSkip}{\fau@inner@TitleTitleSkip=#1}
+\DeclareOptionBeamer{HeaderHeight}{\fau@inner@HeaderHeight=#1}
+\DeclareOptionBeamer{TitleHeight}{\fau@inner@TitleHeight=#1}
+\DeclareOptionBeamer{TitleLineHeight}{\fau@inner@TitleLineHeight=#1}
+\DeclareOptionBeamer{TitleOverPicStart}{\def\fau@inner@TitleOverPicStart{#1}}
+
+\DeclareOptionBeamer{WordMarkTitle}{\def\fau@inner@WordMarkTitle{#1}}
+\DeclareOptionBeamer{TitleArt}{\def\fau@inner@TitleArt{#1}}
+
+
+% ..............................................................................
+\ProcessOptionsBeamer
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+\mode<presentation>
+% ------------------------------------------------------------------------------
+
+% ..............................................................................
+% Title page
+% ------------------------------------------------------------------------------
+
+\setbeamertemplate{title page}{%
+\vbox to \paperheight{%
+\hbox to \paperwidth{%
+%
+% Sidebar
+%
+\begin{beamercolorbox}[dp=0pt,sep=0pt,%
+					   wd=\beamer@leftsidebar,%
+					   ht=\dimexpr\fau@inner@HeaderHeight+\fau@inner@TitleHeight+\fau@inner@TitleLineHeight]{sidebar title}%
+%
+\end{beamercolorbox}%
+%
+\vbox to \dimexpr\fau@inner@HeaderHeight+\fau@inner@TitleHeight+\fau@inner@TitleLineHeight{%
+%
+% Headline
+%
+\begin{beamercolorbox}[dp=0pt,sep=0pt,%
+					   wd=\dimexpr\paperwidth-\beamer@leftsidebar,%
+					   ht=\fau@inner@HeaderHeight]{headline title}%
+%
+\end{beamercolorbox}%
+%
+% Frametitle
+%
+\nointerlineskip%
+\frametitlewrapper{frametitle title}{separation line title}{\fau@inner@WordMarkTitle}{1}{\fau@inner@WordMarkTitleWidth}{\fau@inner@WordMarkTitleHeight}{\fau@inner@TitleTitleSkip}{\fau@inner@TitleLineHeight}%
+}%
+}%
+\nointerlineskip%
+%
+% Main Body
+%
+\begin{beamercolorbox}[dp=0pt,sep=0pt,%
+					   wd=\dimexpr\paperwidth,%
+					   ht=\dimexpr\paperheight-\fau@inner@HeaderHeight-\fau@inner@TitleHeight-\fau@inner@TitleLineHeight]{}%
+% 
+\begin{overpicdefault}[width=\dimexpr\paperwidth,%
+				height=\dimexpr\paperheight-\fau@inner@HeaderHeight-\fau@inner@TitleHeight-\fau@inner@TitleLineHeight]{\fau@inner@TitleArt}%
+%
+\put (5,\numexpr\fau@inner@TitleOverPicStart-2) {%
+\parbox[b]{0.9\textwidth}{
+{\usebeamerfont{title}{\inserttitle}}\\
+% if a subtitle is given insert it here
+\ifx\insertsubtitle\empty\else
+{\usebeamerfont{subtitle}\parbox{0.9\textwidth}{\insertsubtitle}}%
+\fi}}%
+%
+%
+%
+\put (5,\numexpr\fau@inner@TitleOverPicStart-18) {%
+\parbox[b]{0.9\textwidth}{%
+% insert authors
+\ifx\insertauthor\empty\else
+	{\usebeamerfont{subtitle}\textbf{\insertauthor}}\\[1em]%
+\fi%
+% insert institute name
+\ifx\insertinstitute\empty\else%
+    {\usebeamerfont{subtitle}\insertinstitute}\\[1em]%
+\fi
+% insert date
+\ifx\insertdate\empty\else%
+	{\usebeamerfont{subtitle}\insertdate}%
+\fi%
+}%
+}%
+\end{overpicdefault}
+\end{beamercolorbox}%
+}%
+}%
+
+
+
+
+
+% ..............................................................................
+% Section page
+% ------------------------------------------------------------------------------
+
+\AtBeginSection{%
+{%
+\setbeamertemplate{headline}[headline title]
+\setbeamertemplate{sidebar left}[sidebar title theme]
+\setbeamertemplate{frametitle}[frametitle title]
+\setbeamertemplate{footline}[footline title]
+\setbeamercolor{background canvas}{bg=BaseColor}
+\setbeamercolor{section in toc}{fg=TitleFont}
+\setbeamercolor{subsection in toc}{fg=TitleFont}
+%\usebeamercolor[fg]{normal text}
+\begin{frame}{-}
+\usebeamerfont{title}%
+\hypersetup{linkcolor=TitleFont}
+
+\tableofcontents[currentsection]
+\end{frame}
+}%
+}%
+% --------------------------------------------------------------------------
+
+% ..............................................................................
+% Boxes and list
+% -------
+%
+% We define the bullet points for list and box behaviour.
+% ------------------------------------------------------------------------------
+
+\setbeamertemplate{itemize items}[triangle] % adapt height of itemize rectangles
+\setbeamertemplate{itemize item}{\raisebox{0.22ex}{$\bullet$}\hskip0.1em}
+\setbeamertemplate{itemize subitem}{\raisebox{0.22ex}{$\circ$}\hskip0.1em}
+\setbeamertemplate{navigation symbols}{}  % no navigation symbols
+% ------------------------------------------------------------------------------
+
+% ..............................................................................
+% Text alignemnt
+% -------
+%
+% Adjust the space that is justed in a frame.
+% ------------------------------------------------------------------------------
+
+\setbeamersize
+{
+    text margin left=0cm,
+    text margin right=1.5cm
+}
+% ------------------------------------------------------------------------------
+
+
+\setbeamertemplate{block begin}{%
+	\vspace*{1ex}%
+	\ifx\insertblocktitle\empty%
+	\else%
+	\begin{beamercolorbox}[sep=5pt]{block title}
+	\usebeamerfont*{block title}\insertblocktitle%
+	\end{beamercolorbox}%
+	\fi%
+	\nointerlineskip%
+	\usebeamerfont{block body}%
+	\begin{beamercolorbox}[%
+	sep=5pt
+	]{block body}%
+}%
+
+\setbeamertemplate{block end}{%
+\end{beamercolorbox}
+\vspace*{0.2ex}
+}
+
+
+
+
+% ..............................................................................
+% ToC
+% -------
+%
+% We want numbered sections in Toc. Additionally we specify of shaded toc.
+% ------------------------------------------------------------------------------
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\setbeamertemplate{section in toc shaded}{%
+\begin{colormixin}{0!BaseColorA}%
+\usebeamertemplate{section in toc}%
+\end{colormixin}%
+\unskip%
+}
+
+\setbeamertemplate{subsection in toc shaded}{%
+\begin{colormixin}{0!BaseColorA}%
+\usebeamertemplate{subsection in toc}%
+\end{colormixin}%
+\unskip%
+}
+% ..............................................................................
+% Reset mode to all
+\mode<all>

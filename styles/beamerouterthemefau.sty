@@ -1,0 +1,335 @@
+% ..............................................................................
+% The outer beamer theme accoridng to the FAU corporate style guide 2021, see 
+%
+% https://www.intern.fau.de/kommunikation-marketing-und-corporate-identity/corporate-identity/
+%
+%
+% Copyright 2022 by Tim Roith <tim.roith@fau.de>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+%
+% ------------------------------------------------------------------------------
+
+\ProvidesPackage{styles/beamerouterthemefau}
+% ..............................................................................
+
+\newdimen\fau@outer@SideBarWidthLeft % width of the left sidbar
+\newdimen\fau@outer@HeaderHeight % header height without separation line
+\newdimen\fau@outer@HeaderTitleHeight
+\newdimen\fau@outer@LineWidthThick % thick linewidth
+\newdimen\fau@outer@LineWidthThin % thin linewidth
+\newdimen\fau@outer@TitleHeight % title height
+\newdimen\fau@outer@TitleSkip
+\newdimen\fau@outer@TitleLineHeight
+\newdimen\fau@outer@TitleTitleSkip 
+\newdimen\fau@outer@FootHeight
+\newdimen\fau@outer@FootLineSkip
+\newdimen\fau@outer@WordMarkHeight
+\newdimen\fau@outer@WordMarkWidth
+\newdimen\fau@outer@WordMarkTitleHeight
+\newdimen\fau@outer@WordMarkTitleWidth
+\newdimen\fau@outer@WordMarkLeftHeight
+\newdimen\fau@outer@WordMarkLeftWidth
+\newdimen\fau@outer@WordMarkBoxWidth
+\newdimen\fau@outer@TitleSkipLeft
+%
+% dimensions for lobal use
+%
+\newdimen\FrameHeight
+\newdimen\TitleHeight
+%
+\newif\iffau@outer@InsertTotalFoot\fau@outer@InsertTotalFootfalse
+\newif\iffau@outer@InsertExtraLogo\fau@outer@InsertExtraLogofalse
+
+% ..............................................................................
+% Dimensions
+% -------
+%
+% We define the relevant dimensions for this template.
+% ------------------------------------------------------------------------------
+
+\DeclareOptionBeamer{SideBarWidthLeft}{\fau@outer@SideBarWidthLeft=#1}
+\DeclareOptionBeamer{HeaderHeight}{\fau@outer@HeaderHeight=#1}
+\DeclareOptionBeamer{HeaderTitleHeight}{\fau@outer@HeaderTitleHeight=#1}
+\DeclareOptionBeamer{TitleHeight}{\fau@outer@TitleHeight=#1}
+\DeclareOptionBeamer{TitleLineHeight}{\fau@outer@TitleLineHeight=#1}
+\DeclareOptionBeamer{TitleSkip}{\fau@outer@TitleSkip=#1}
+\DeclareOptionBeamer{TitleTitleSkip}{\fau@outer@TitleTitleSkip=#1}
+\DeclareOptionBeamer{TitleSkipLeft}{\fau@outer@TitleSkipLeft=#1}
+\DeclareOptionBeamer{LineWidthThick}{\fau@outer@LineWidthThick=#1}
+\DeclareOptionBeamer{LineWidthThin}{\fau@outer@LineWidthThin=#1}
+\DeclareOptionBeamer{FootHeight}{\fau@outer@FootHeight=#1}
+\DeclareOptionBeamer{FootLineSkip}{\fau@outer@FootLineSkip=#1}
+\DeclareOptionBeamer{WordMarkHeight}{\fau@outer@WordMarkHeight=#1}
+\DeclareOptionBeamer{WordMarkWidth}{\fau@outer@WordMarkWidth=#1}
+\DeclareOptionBeamer{WordMarkTitleHeight}{\fau@outer@WordMarkTitleHeight=#1}
+\DeclareOptionBeamer{WordMarkTitleWidth}{\fau@outer@WordMarkTitleWidth=#1}
+\DeclareOptionBeamer{WordMarkLeftHeight}{\fau@outer@WordMarkLeftHeight=#1}
+\DeclareOptionBeamer{WordMarkLeftWidth}{\fau@outer@WordMarkLeftWidth=#1}
+\DeclareOptionBeamer{WordMarkBoxWidth}{\fau@outer@WordMarkBoxWidth=#1}
+
+%
+\DeclareOptionBeamer{InsertTotalFoot}{\fau@outer@InsertTotalFoottrue}
+\DeclareOptionBeamer{WordMark}{\def\fau@outer@WordMark{#1}}
+\DeclareOptionBeamer{WordMarkTitle}{\def\fau@outer@WordMarkTitle{#1}}
+\DeclareOptionBeamer{WordMarkTitleLeft}{\def\fau@outer@WordMarkTitleLeft{#1}}
+\DeclareOptionBeamer{ExtraLogo}{%
+	\def\fau@outer@ExtraLogo{#1}%
+	\fau@outer@InsertExtraLogotrue%
+}
+% ------------------------------------------------------------------------------
+
+% ..............................................................................
+\ProcessOptionsBeamer
+\mode<presentation>
+% ..............................................................................
+%
+%
+%
+\setlength{\FrameHeight}{\dimexpr\paperheight-\fau@outer@HeaderHeight-\fau@outer@TitleHeight-\fau@outer@FootHeight-6mm}
+\setlength{\TitleHeight}{\fau@outer@TitleHeight}
+% ..............................................................................
+\RequirePackage{tikz}
+\RequirePackage{graphicx}
+
+% ..............................................................................
+% Headline
+% -------
+%
+% This section specifies the behaviour of the frame headline.
+% ------------------------------------------------------------------------------
+\setbeamertemplate{headline}{%
+\begin{beamercolorbox}[wd=\paperwidth,
+					   ht=\fau@outer@HeaderHeight, dp=0ex,sep=0pt]{headline}%
+\end{beamercolorbox}%
+}%
+
+\defbeamertemplate{headline}{headline title}{%
+\begin{beamercolorbox}[wd=\paperwidth,
+					   ht=\fau@outer@HeaderHeight, dp=0ex,sep=0pt]{headline title}%
+\end{beamercolorbox}%
+%
+}%
+
+% ..............................................................................
+% Frame title
+% -----------
+%
+% ------------------------------------------------------------------------------
+
+\newcommand{\frametitlewrapper}[8]{%
+\nointerlineskip%
+\begin{beamercolorbox}[dp=0cm, sep=0.0cm,left,
+					   wd=\dimexpr\paperwidth-\fau@outer@SideBarWidthLeft,
+					   ht=\dimexpr\fau@outer@TitleHeight+#8]{frametitle}%
+\usebeamerfont{frametitle}%
+%
+\vbox to\dimexpr\fau@outer@TitleHeight+#8{%
+%
+% hbox for title
+%
+\hbox to \dimexpr\paperwidth-\fau@outer@SideBarWidthLeft{%
+\begin{beamercolorbox}[dp=0cm, sep=0.0cm,left,
+					   wd=\dimexpr.6\paperwidth-\fau@outer@SideBarWidthLeft,
+					   ht=\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick]{#1}%
+\vbox to\dimexpr\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick-#7{%
+\ifnum#4=0%
+	\insertframetitle\\%
+	%
+	\ifx\insertframesubtitle\empty\else%
+	{\usebeamerfont{subtitle}\insertframesubtitle}\\%
+	\fi%
+	\vfil%
+\else%
+	\includegraphicsdefault[width=\fau@outer@WordMarkLeftWidth,%
+					 height=\fau@outer@WordMarkLeftHeight,%
+					 keepaspectratio]{\fau@outer@WordMarkTitleLeft}%
+	\vfil%
+\fi%
+%
+}%
+\end{beamercolorbox}%
+\hfil%
+%
+% insert additional logo
+%
+\begin{beamercolorbox}[dp=0cm, sep=0.0cm,right,%
+					   wd=\dimexpr.4\paperwidth-\fau@outer@WordMarkBoxWidth-\fau@outer@TitleSkipLeft,%
+					   ht=\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick]{#1}%
+%
+\vbox to\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick{%
+\iffau@outer@InsertExtraLogo%
+	\ifnum#4=0%
+	\else%
+	\includegraphicsdefault[width=0.9\dimexpr.4\paperwidth-
+								  \fau@outer@WordMarkBoxWidth-\fau@outer@TitleSkipLeft,%
+				 			height=0.9\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick,%
+				 			keepaspectratio]{\fau@outer@ExtraLogo}%
+	\fi%
+\fi%
+\vfil%
+}%	 
+\end{beamercolorbox}%
+%
+% insert fau word mark
+%
+\begin{beamercolorbox}[dp=0cm, sep=0.0cm,right,%
+					   wd=\fau@outer@WordMarkBoxWidth,%
+					   ht=\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick]{#1}%
+\vbox to\dimexpr\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick{%
+%
+\includegraphicsdefault[width=#5,%
+				        height=#6,%
+				        keepaspectratio]{#3}%
+\vfil%
+}%
+%
+\end{beamercolorbox}%
+%
+\begin{beamercolorbox}[dp=0cm, sep=0.0cm,right,%
+					   wd=\fau@outer@TitleSkipLeft,%
+					   ht=\dimexpr\fau@outer@TitleHeight-\fau@outer@LineWidthThick]{#1}%
+\end{beamercolorbox}%
+}%
+%
+% separation line
+%
+\nointerlineskip%
+\begin{beamercolorbox}[dp=0cm,left,sep=0cm,
+					   wd=\dimexpr\paperwidth-\fau@outer@SideBarWidthLeft, 
+					   ht=\fau@outer@LineWidthThick]{#2}%
+\end{beamercolorbox}%
+%
+% Line height offset
+%
+\nointerlineskip%
+\begin{beamercolorbox}[dp=0cm, sep=0.0cm,right,%
+					   wd=\dimexpr\paperwidth-\fau@outer@SideBarWidthLeft,%
+					   ht=#8]{#1}%
+\end{beamercolorbox}%
+}%
+\end{beamercolorbox}%
+}%
+
+\setbeamertemplate{frametitle}{%
+\frametitlewrapper{}{separation line}{\fau@outer@WordMark}{0}{\fau@outer@WordMarkWidth}{\fau@outer@WordMarkHeight}{\fau@outer@TitleSkip}{0pt}%
+}%
+
+\defbeamertemplate{frametitle}{frametitle title}{%
+\frametitlewrapper{frametitle title}{separation line title}{\fau@outer@WordMarkTitle}{1}{\fau@outer@WordMarkTitleWidth}{\fau@outer@WordMarkTitleHeight}{\fau@outer@TitleTitleSkip}{\fau@outer@TitleLineHeight}%
+}%
+% ------------------------------------------------------------------------------
+
+
+
+
+% ..............................................................................
+% Sidebar
+% -------
+%
+% This section specifies the behaviour of the sidbar.
+% ------------------------------------------------------------------------------
+
+\setbeamersize{sidebar width left=\fau@outer@SideBarWidthLeft}
+% ------------------------------------------------------------------------------
+\defbeamertemplate{sidebar left}{sidebar title theme}{%
+\begin{beamercolorbox}[dp=0pt,sep=0pt,%
+					   wd=\fau@outer@SideBarWidthLeft,%
+					   ht=\dimexpr\paperheight-\fau@outer@FootHeight-\fau@outer@HeaderHeight]{sidebar title}%
+%
+\end{beamercolorbox}%
+}%
+
+\setbeamertemplate{sidebar left}{}%
+
+
+
+% ..............................................................................
+% Footline
+% ------------------------------------------------------------------------------
+
+\newcommand{\footwrapper}[2]{%
+\begin{beamercolorbox}[wd=\paperwidth,ht=\fau@outer@FootHeight]{#1}%
+\hbox to \paperwidth{%
+\hskip\dimexpr\fau@outer@SideBarWidthLeft%
+\vbox to \fau@outer@FootHeight{%
+\begin{beamercolorbox}[wd=\dimexpr\paperwidth-\fau@outer@SideBarWidthLeft, 
+  					   ht=\fau@outer@LineWidthThin,dp=0pt,sep=0pt]{#2}%
+\end{beamercolorbox}%
+\nointerlineskip%
+\hbox to \dimexpr\paperwidth-\fau@outer@SideBarWidthLeft{%
+%
+% left side of the footer
+%
+\begin{beamercolorbox}[dp=0pt,sep = \fau@outer@FootLineSkip,%
+					   leftskip= -\fau@outer@FootLineSkip,%
+					   wd=\dimexpr.5\paperwidth-\fau@outer@SideBarWidthLeft,%
+  					   ht=\dimexpr\fau@outer@FootHeight-\fau@outer@LineWidthThin]{footline}%
+\ifx\insertshortinstitute\empty\else%
+	\insertshortinstitute\quad%
+\fi%
+\ifx\insertshortauthor\empty\else%
+	\insertshortauthor\quad%
+\fi%
+\ifx\insertshorttitle\empty\else%
+	\insertshorttitle%
+\fi%
+%
+\end{beamercolorbox}%
+\hfil%
+%
+% rigth side of the footer
+%
+\begin{beamercolorbox}[dp=0pt,sep = \fau@outer@FootLineSkip,%
+					   rightskip=\dimexpr\fau@outer@SideBarWidthLeft-\fau@outer@FootLineSkip,%
+					   wd=\dimexpr.5\paperwidth,%
+  					   ht=\dimexpr\fau@outer@FootHeight-\fau@outer@LineWidthThin]{footline}%
+\hfill%
+\insertdate\qquad%
+\insertframenumber%
+\iffau@outer@InsertTotalFoot
+/\inserttotalframenumber%
+\fi%
+\end{beamercolorbox}%
+}%
+}%
+}%
+\end{beamercolorbox}%
+}%
+
+\setbeamertemplate{footline}{%
+\footwrapper{}{separation line}
+}%
+
+% shaded footline for title/section page
+\defbeamertemplate{footline}{footline title}{%
+\footwrapper{footline title}{separation line title}
+}%
+% ------------------------------------------------------------------------------
+
+
+
+
+
+% ..............................................................................
+% trueplainframe
+% ---------
+% Actual plain environment
+% This removes the left sidbar of a plain frame
+% ------------------------------------------------------------------------------
+\newenvironment{trueplainframe}[1][]{%
+\setlength{\hoffset}{-\beamer@leftsidebar}
+%
+\addtolength{\textwidth}{\beamer@leftsidebar}
+\addtolength{\textwidth}{\beamer@rightmargin}
+\setlength{\hsize}{\textwidth}
+\setlength{\columnwidth}{\textwidth}
+\typeout{Teco sad \the\textwidth, right margin \the\beamer@rightmargin, left side bar \the\beamer@leftsidebar, hoffset \the\hoffset}
+%
+\begin{frame}[plain,#1]%
+}{%
+\end{frame}%
+}%
+% ------------------------------------------------------------------------------
+\mode<all>

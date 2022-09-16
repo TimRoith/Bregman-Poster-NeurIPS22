@@ -1,0 +1,66 @@
+% ..............................................................................
+% This file assigns the color scheme for the beamer environments.
+%
+% Copyright 2022 by Tim Roith <tim.roith@fau.de>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+%
+% ------------------------------------------------------------------------------
+
+\ProvidesPackage{styles/beamercolorthemefau}
+% ..............................................................................
+\RequirePackage{ifthen}
+% ..............................................................................
+\DeclareOptionBeamer{institute}{%
+  \PassOptionsToPackage{#1}{styles/fau-colors}%
+}
+
+\ProcessOptionsBeamer
+% ..............................................................................
+\RequirePackage{styles/fau-colors}
+% ..............................................................................
+\selectcolormodel{rgb}
+\mode<presentation>
+% ..............................................................................
+\setbeamercolor{title page}{fg=TitleFont,bg=BaseColor}
+\setbeamercolor{title page headline}{bg=white}
+\setbeamercolor{title page block}{fg=TitleFont,bg=BaseColor}
+\setbeamercolor{title page logo}{fg=TitleFont}
+% ..............................................................................
+\setbeamercolor{section page}{fg=TitleFont,bg=BaseColor}
+\setbeamercolor{section page headline}{bg=TitleFont}
+\setbeamercolor{section page block}{fg=TitleFont,bg=BaseColor}
+\setbeamercolor{section page logo}{fg=TitleFont}
+% ..............................................................................
+
+% ..............................................................................
+% Color themes for frame sepcification.
+% ------------------------------------------------------------------------------
+\setbeamercolor{headline}{fg=BaseColor,bg=white}
+\setbeamercolor{headline title}{fg=TitleFont,bg=BaseColor}
+
+\setbeamercolor{separation line}{bg=SeparationLineColor}
+\setbeamercolor{separation line title}{bg=SeparationLineColor}
+
+\setbeamercolor{sidebar title}{fg=BaseColor,bg=BaseColor}
+
+\setbeamercolor{frametitle title}{fg=TitleFont,bg=BaseColor}
+\setbeamercolor{footline title}{fg=TitleFont, bg=BaseColor}
+
+\setbeamercolor{white background}{fg=white,bg=white}
+\setbeamercolor{poster title}{fg=red,bg=white}
+% ..............................................................................
+
+\setbeamercolor{block title}{bg=BaseDarkColor,fg=TitleFont}
+\setbeamercolor{block poster title}{bg=BaseDarkColor,fg=TitleFont}
+\setbeamercolor{block body}{bg=BaseColorD,fg=black}
+\setbeamercolor{structure}{fg=BaseColor}
+
+\setbeamercolor{section in toc}{fg=BaseColor}
+\setbeamercolor{subsection in toc}{fg=BaseColor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamercolor{outline}{fg=red,bg=red}
+\setbeamercolor{outlineB}{fg=blue,bg=blue}
+\mode<all>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
