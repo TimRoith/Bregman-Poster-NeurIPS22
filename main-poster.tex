@@ -97,7 +97,7 @@ Sparse Neural Networks}
 % ========================================================================================
 % Additional packages
 % ----------------------------------------------------------------------------------------
-
+\usepackage{subcaption}
 
 
 % ========================================================================================
@@ -105,7 +105,8 @@ Sparse Neural Networks}
 % ----------------------------------------------------------------------------------------
 \pdfsuppresswarningpagegroup=1 %solves the PDF inclusion problem
 % Change color for cite locally
-\newcommand{\colorcite}[3]{{\hypersetup{citecolor=#1}{\cite[#2]{#3}}}} 
+\newcommand{\colorcite}[3]{{\hypersetup{citecolor=#1}{\cite[#2]{#3}}}}
+\setlength{\abovedisplayskip}{0pt}
 % ----------------------------------------------------------------------------------------
 % ========================================================================================
 % The main document
@@ -113,36 +114,11 @@ Sparse Neural Networks}
 \begin{document}
 \begin{frame}{-}{}
 %
+\input{sections/top_strip}
 %
+\input{sections/middle_strip}
 %
-\begin{block}{Example Block}
-This is an example block with example text.\\
-It spans over multiple lines.
-\end{block}
+\input{sections/bottom_strip}
 %
-%
-%
-\hbox to \textwidth{%
-\begin{minipage}{0.45\textwidth}
-\begin{block}{Use minipages}
-Use minipages to make smaller blocks.
-\end{block}
-\end{minipage}
-%
-\hfill%
-%
-\begin{minipage}{0.45\textwidth}
-\begin{block}{Itemize}
-\begin{itemize}
-\item Item A.
-\item Item B.
-\item Item C.
-\end{itemize}
-\end{block}
-\end{minipage}}
-%
-%
-%
-This is just text in the middle of nowhere.
 \end{frame}
 \end{document}

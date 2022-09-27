@@ -14,30 +14,64 @@
 \RequirePackage{dsfont}
 % ----------------------------------------------------------------------------------------
 %
-% ========================================================================================
-% Command definition for commands
-% ----------------------------------------------------------------------------------------
-\newcommand{\norm}[1]{\left\|#1\right\|}
-\newcommand{\tv}{\mathrm{TV}}
-\newcommand{\argmin}{\mathrm{arg}\min}
-\newcommand{\st}{\;:\;}
-\renewcommand{\H}{\mathcal{H}}
-\newcommand{\X}{\mathcal{X}}
-\newcommand{\Y}{\mathcal{Y}}
-\newcommand{\V}{\mathcal{V}}
-\newcommand{\calN}{\mathcal{N}}
-\newcommand{\ran}{\mathrm{ran}}
-\newcommand{\dom}{\mathrm{dom}}
+% comment functions
+\newcommand{\lb}[1]{{\color{red}#1}}
+\newcommand{\mb}[1]{{\color{purple}#1}}
+
+\definecolor{internationalkleinblue}{rgb}{0.0, 0.18, 0.65}
+\newcommand{\tr}[1]{{\color{internationalkleinblue}#1}}
+
+\newcommand{\revision}[1]{{\color{magenta}#1}}
+
+\newcommand{\comment}[1]{}
+
+% general math
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\lip}{\operatorname{Lip}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\prox}[1]{\,\mathrm{prox}_{#1}}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\norm}[1]{\Vert#1\Vert}
+\newcommand{\st}{\,:\,}
+\DeclareMathOperator*{\Lip}{Lip}
+\DeclareMathOperator*{\sign}{sign}
+\newcommand{\eps}{\varepsilon}
+
+% specific
+\newcommand{\param}{\theta}
+\newcommand{\weight}{W}
+\newcommand{\bias}{b}
+\newcommand{\net}{f}     %{\mathcal{N}}
+\newcommand{\inp}{x}
+\newcommand{\inpp}{x'}
+\newcommand{\oup}{y}
+\newcommand{\oupp}{y'}
+\newcommand{\Inp}{\mathcal{X}}
+\newcommand{\Oup}{\mathcal{Y}}
+\newcommand{\Param}{\Theta}
+\newcommand{\noTr}{K}
+\newcommand{\trSet}{\mathcal{T}}
+\newcommand{\trSetY}{\mathcal{T}_\Oup}
+\newcommand{\loss}{\ell}
+\newcommand{\empBatchLoss}{L}
+\newcommand{\empLoss}{\mathcal{L}}
+\newcommand{\popRisk}{\mathcal{R}}
+\newcommand{\relu}{\operatorname{ReLU}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Exp}[1]{\E\left[#1\right]}
+\newcommand{\Var}[1]{\mathrm{Var}\left[#1\right]}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\func}{J}
+\newcommand{\sg}{p}
+\newcommand{\regParam}{\alpha}
+\newcommand{\timeStep}{\tau}
+\newcommand{\tol}{\mathrm{tol}}
+\newcommand{\acc}{\mathcal{A}(\net_\param)}
 \renewcommand{\d}{\mathrm{d}}
-\newcommand{\sg}{\zeta}
-\renewcommand{\div}{\operatorname{div}}
-\newcommand{\rot}{\operatorname{rot}}
-\newcommand{\tex}{T_\mathrm{ex}}
-\newcommand{\calA}{\mathcal{A}}
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-\newcommand{\sgn}{\operatorname{sign}}
-\newcommand{\calJ}{\mathcal{J}}
-\newcommand{\dist}{\mathrm{dist}}
-% ----------------------------------------------------------------------------------------
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\LinBreg}{\mbox{LinBreg}}
+\newcommand{\AdaBreg}{\mbox{AdaBreg}}
+
