@@ -3,8 +3,14 @@
 \setlength{\colwidth}{.49\textwidth}
 \setlength{\topstripheight}{.4\textheight}
 % -----------------------------------------------------------------------
-\fbox{%
-\begin{minipage}[t][\topstripheight][t]{\colwidth}%
+\hbox to \textwidth{%
+\tbox{%
+% ---------------------------------------------------
+% Left side: Intro
+% ---------------------------------------------------
+\begin{minipage}[t]{\colwidth}%
+\vskip 0pt%
+% ---------------------------------------------------
 \begin{figure}[tb]
 \def\PicWidth{0.24\textwidth}%
 \centering%
@@ -35,25 +41,69 @@ Descriptive kernels are gradually added in the training process.}
 \label{fig:kernels}
 \vspace{-10pt}
 \end{figure}
+% ---------------------------------------------------
 %
 %
 %
+%
+\cblock{BaseColor}{}{Bregman Training in a Nutshell}{%
+\small
+For input and output spaces $\Inp, \Oup$ we denote by $\net_\param:\Inp\to\Oup$ a neural network parameterized by $\param$ from some parameter space $\Param$. For a feed-forward have that $\net_\param = \Phi^L\circ\ldots\circ\Phi^1$ where the $l$-th layer is given by
+%
+\begin{align*}
+\Phi^L: x\mapsto \sigma\left(W^l x + b^l\right).
+\end{align*}
+Here, $W^l, b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ is an activation function.
+}
+\vspace{.5em}
+
+%
+\begin{minipage}[t]{.48\textwidth}%
+\small%
+We are interested in finding parameters that minimize some \textcolor{BaseDarkColor}{\textbf{loss}} $\empLoss:\Param\to\R$. This is done via a gradient-based method, where in each step we replace the loss 
+
+
+
+% training data $\trSet\subset \Inp\times\Oup$ want typically replaces 
+\end{minipage}%
+%
+\hfill%
+%
+\begin{minipage}[t]{.48\textwidth}%
+\small%
+Additionally, we want the parameters to be \textcolor{BaseDarkColor}{\textbf{sparse}} which is enforced, via an regularization functional $\func:\Param\to\R$.
+\end{minipage}%
+
+
+%
+\begin{minipage}[t]{\textwidth}%
+\cblock{BaseColor}{}{The Algorithm}{%
+\small%
+Embedding linearized Bregman iterations in a stochastic framework, we denote by $g:\Param\times\Omega \to \Param$ an unbiased estimator of $\nabla\empLoss$, i.e., $\Exp{g(\param;\omega)} = \nabla\empLoss(\param)$ for some probability space $(\Omega, \P)$. In each step we sample $\omega^k$ from $\P$, set $g^k = g(\theta^k; \omega^k)$ and perform the following update
 %
 \begin{block}{}%
-$g \gets \nabla\empBatchLoss(\param;B)$ Backpropagation\\
-$v \gets v - \tau g$ Gradient step\\
-$\param \gets \prox{\delta\func}\left(\delta v\right)$ Regularization
+\begin{align*}%
+v^{k+1} &:= v^{k} - \tau^{k} g^{k},\qquad&\text{Gradient Step}\\
+\param^{k+1} &:= \prox{\delta J}(\delta v^{k+1}).
+\qquad&\text{Proximal Step}
+\end{align*}%
 \end{block}%
+}%
+\end{minipage}%
 \end{minipage}%
 }%
 %
 %
 %
 %
-%
+% ---------------------------------------------------
+% Line Divider
+% ---------------------------------------------------
 \hfill%
-\fbox{%
-\begin{minipage}[t][\topstripheight][b]{.005\textwidth}%
+%
+\tbox{%
+\begin{minipage}[t]{.005\textwidth}%
+\vskip 0pt%
 \begin{center}
 \textcolor{BaseDarkColor}{%
 \rule{.2mm}{\topstripheight}%
@@ -61,61 +111,116 @@ $\param \gets \prox{\delta\func}\left(\delta v\right)$ Regularization
 \end{center}
 \end{minipage}%
 }%
+%
 \hfill%
 %
 %
 %
 %
 %
-% --------------------------------------------------------------------------
+% ---------------------------------------------------
 % Analytical Results
-\fbox{%
-\begin{minipage}[t][\topstripheight][b]{\colwidth}%
-\colorbox{BaseColor}{\makebox[\textwidth]{\textcolor{white}{Assumptions}\hfill}}\\
+% ---------------------------------------------------
+\tbox{%
+\begin{minipage}[t]{\colwidth}%
+\vskip 0pt%
+\cblock{BaseColor}{}{Assumptions}{}%
+%Section for assumptions
+\begin{minipage}{\textwidth}%
+\small%
+\begin{minipage}[t]{.48\textwidth}%
+\cblock{BaseColorA}{}{Assumption 1: The Loss function}{%
+We assume that $\empLoss\geq 0$, $\empLoss$ is continuously differentiable and that for all $\param,\tilde\param\in\Param$ we have
+\begin{align*}
+\norm{\nabla\empLoss(\tilde\param)-\nabla\empLoss(\param)}\leq L \norm{\tilde\param-\param}.
+\end{align*}%
+}%
+\end{minipage}%
+%
+\hfill
+%
+\begin{minipage}[t]{.48\textwidth}%
+\cblock{BaseColorA}{}{Assumption 2: Bounded Variance}{%
+There exists a constant $\sigma>0$ such that for any $\param\in\Param$ it holds
+\begin{align*}
+\E\left[\norm{g(\param;\omega)-\nabla\empLoss(\param)}^2\right] \leq \sigma^2.
+\end{align*}%
+}%
+\end{minipage}%
+\end{minipage}%
+%
+\vspace{.5em}
+
+%
+\begin{minipage}{\textwidth}%
+\small%
+\begin{minipage}[t]{.48\textwidth}%
+\cblock{BaseColorA}{}{Assumption 3: Regularizer}{%
+We assume that $\func:\Param\to(-\infty,\infty]$ is a convex, proper, and lower semicontinuous functional on the Hilbert space $\Param$.%
+}%
+\end{minipage}%
+%
+\hfill%
+%
+\begin{minipage}[t]{.48\textwidth}%
+\cblock{BaseColorA}{}{Assumption 4: Strong Convexity}{%
+We have that for all $\param,\tilde\param\in\Param$
+\begin{align*}
+\empLoss(\tilde\param) &\geq \empLoss(\param) + \langle\nabla\empLoss(\param),\tilde\param - \param\rangle\\
+&+ \frac{\mu}{2}\norm{\tilde\param-\param}^2.
+\end{align*}%
+}%
+\end{minipage}%
+\end{minipage}%
+\vspace{1em}
 
 %
 %
 %
 %
-\colorbox{BaseColor}{\makebox[\textwidth]{\textcolor{white}{Loss Decay}\hfill}}\\
-The iterates of ?? satisfy
+\cblock{BaseColor}{}{Loss Decay}{%
+% section for loss decay
+\small
+Assume that Assumptions 1--3 hold true, let $\delta>0$, and let the step sizes satisfy $\tau^{(k)} \leq \frac{2}{\delta L}$.
+Then there exist constants $c,C>0$ such that for every $k\in\N$ the iterates of (??) satisfy
 \begin{block}{}
 \begin{align*}
-\E\left[\empLoss(\param^{(k+1)})\right] &+
+\textcolor{BaseColor}{\E\left[\empLoss(\param^{(k+1)})\right]} &+
 %
 \frac{1}{\tau^{(k)}}\E\left[ D^\mathrm{sym}_\func(\param^{(k+1)},\param^{(k)})\right]\\
 %
 &+
-\frac{C}{2\delta\tau^{(k)}}\E\left[\norm{\param^{(k+1)}-\param^{(k)}}^2\right] \\
+\frac{C}{2\delta\tau^{(k)}}\E\left[\norm{\param^{(k+1)}-\param^{(k)}}^2\right] %\\
 %
-&\leq \E\left[\empLoss(\param^{(k)})\right] + \tau^{(k)}\delta\frac{\sigma^2}{2c},
+\leq
+\textcolor{BaseColor}{\E\left[\empLoss(\param^{(k)})\right]} + \tau^{(k)}\delta\frac{\sigma^2}{2c}.
 \end{align*}
 \end{block}
+}%
 %
 %
 %
-\colorbox{BaseColor}{\makebox[\textwidth]{\textcolor{white}{Convergence in Norm}\hfill}}\\
-$J(\param^*)<\infty$ the stochastic linearized Bregman iterations ?? satisfy the following:
-\begin{itemize}
-\item Letting $d_k:=\E\left[D_{\func_\delta}^{v^{(k)}}(\param^*,\param^{(k)})\right]$ it holds
+\cblock{BaseColor}{}{Convergence in Norm}{%
+\small%
+Assume that Assumptions 1--4 hold true and that $J(\param^*)<\infty$, where  $\param^*$ is the unique minimizer of $\mathcal{L}$. For every $k\in\N$ and  $d_k:=\E\left[D_{\func_\delta}^{v^{(k)}}(\param^*,\param^{(k)})\right]$ we have
 %
 \begin{block}{}
 \begin{align*}
-&d_{k+1} - d_k\\
+d_{k+1} - d_k
++ \frac{\mu}{4}\tau^{(k)}\E\left[\norm{\param^*-\param^{(k+1)}}^2\right]
 %
-&+ \frac{\mu}{4}\tau^{(k)}\E\left[\norm{\param^*-\param^{(k+1)}}^2\right]\\
-%
-&\leq  \frac{\sigma}{2}\left((\tau^{(k)})^2 +\Exp{\norm{\param^{(k)} - \param^{(k+1)}}^2}\right).
+\leq  \frac{\sigma}{2}\left((\tau^{(k)})^2 +\Exp{\norm{\param^{(k)} - \param^{(k+1)}}^2}\right).
 \end{align*}
 \end{block}
 %
-\item The iterates possess a subsequence converging in the $L^2$-sense of random variables: 
+Furthermore, there exists a subsequence $\param^{(k_j)}$ such that
 \begin{align*}
 \lim_{j\to\infty}\E\left[\norm{\param^*-\param^{(k_j)}}^2\right] = 0.
 \end{align*}
-\end{itemize}
+}%
 \end{minipage}%
 }%
+}
 
 \fbox{%
 \begin{minipage}{\textwidth}

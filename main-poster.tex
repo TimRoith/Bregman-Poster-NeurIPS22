@@ -107,6 +107,37 @@ Sparse Neural Networks}
 % Change color for cite locally
 \newcommand{\colorcite}[3]{{\hypersetup{citecolor=#1}{\cite[#2]{#3}}}}
 \setlength{\abovedisplayskip}{0pt}
+
+\def\boxstate{0}
+\newcommand{\tbox}[1]{%
+\ifthenelse{\equal{\boxstate}{1}}{%
+{\fbox{#1}}}%
+{#1}%
+}%
+
+% \newcommand{\cbox}[2]{%
+% \colorbox{#1}{\makebox[\textwidth]{%
+% \setlength{\fboxsep}{0pt}%
+% \textcolor{white}{\strut#2}\hfill}}%
+% }
+
+\newcommand{\cblock}[4]{%
+\ifx#3\empty%
+\else%
+\setbeamercolor{hcolor}{fg=white,bg=#1}%
+\begin{beamercolorbox}[wd=\textwidth, sep=5pt]{hcolor}%
+#3\phantom{Ag}%
+\end{beamercolorbox}%
+\fi%
+\ifx#4\empty%
+\else%
+\setbeamercolor{bcolor}{fg=black,bg=#2}%
+\begin{beamercolorbox}[wd=\textwidth, sep=5pt]{bcolor}%
+#4%
+\end{beamercolorbox}%
+\fi%
+}%
+
 % ----------------------------------------------------------------------------------------
 % ========================================================================================
 % The main document
