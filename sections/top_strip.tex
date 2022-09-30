@@ -81,6 +81,7 @@ Additionally, we want the parameters to be \textcolor{BaseDarkColor}{\textbf{spa
 \small%
 Embedding linearized Bregman iterations in a stochastic framework, we denote by $g:\Param\times\Omega \to \Param$ an unbiased estimator of $\nabla\empLoss$, i.e., $\Exp{g(\param;\omega)} = \nabla\empLoss(\param)$ for some probability space $(\Omega, \P)$. In each step we sample $\omega^k$ from $\P$, set $g^k = g(\theta^k; \omega^k)$ and perform the following update
 %
+\begin{minipage}{.7\textwidth}%
 \begin{block}{}%
 \begin{align*}%
 v^{k+1} &:= v^{k} - \tau^{k} g^{k},\qquad&\text{Gradient Step}\\
@@ -88,6 +89,7 @@ v^{k+1} &:= v^{k} - \tau^{k} g^{k},\qquad&\text{Gradient Step}\\
 \qquad&\text{Proximal Step}
 \end{align*}%
 \end{block}%
+\end{minipage}%
 }%
 \end{minipage}%
 \end{minipage}%
@@ -105,7 +107,7 @@ v^{k+1} &:= v^{k} - \tau^{k} g^{k},\qquad&\text{Gradient Step}\\
 \begin{minipage}[t]{.005\textwidth}%
 \vskip 0pt%
 \begin{center}
-\textcolor{BaseDarkColor}{%
+\textcolor{BaseColor}{%
 \rule{.2mm}{\topstripheight}%
 }
 \end{center}
@@ -222,10 +224,5 @@ Furthermore, there exists a subsequence $\param^{(k_j)}$ such that
 }%
 }
 
-\fbox{%
-\begin{minipage}{\textwidth}
-Seperator
-\end{minipage}%
-}%
 
 

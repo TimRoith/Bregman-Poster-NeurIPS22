@@ -1,11 +1,58 @@
-\begin{minipage}[t]{.5\textwidth}%
-Training results
-
-\includegraphics[width=\textwidth]{atelier/SGDvsBreg.pdf}
+\newlength\bottomstripheight%
+\setlength{\bottomstripheight}{.25\textheight}%
+%
+\begin{minipage}[t]{\textwidth}%
+\vskip0pt%
+\textcolor{BaseColor}{%
+\rule{\textwidth}{.2mm}%
+}\hfill%
+%
+%
+\begin{minipage}[b][\bottomstripheight][b]{.48\textwidth}%
+%
+\cblock{BaseColor}{}{Training results}{}%
+\small%
+\begin{figure}
+\centering
+\includegraphics[width=.7\textwidth]{atelier/SGDvsBreg.pdf}
+\caption{Comparison of vanilla SGD (black solid line), \LinBreg{} (colored solid lines), and ProxGD (colored dotted lines) for different regularization parameters on MNIST.
+The curves show the averaged accuracies on train and validation sets, $\ell_1$-norms, and non-zero entries over three runs. The shaded area visualizes the standard deviation.}
+\end{figure}%
+\vfill%
+\vphantom{.}
 \end{minipage}%
+%
 \hfill%
-\begin{minipage}[t]{.5\textwidth}%
-NAS with Bregman
+%
+\tbox{%
+\noindent\begin{minipage}[b][\bottomstripheight][b]{.005\textwidth}%
+%
+\begin{center}
+\textcolor{BaseColor}{%
+\rule{.2mm}{\bottomstripheight}%
+}
+\end{center}
+\end{minipage}%
+}%
+%
+\hfill%
+%
+%
+%
+%
+%
+%
+%
+\noindent\begin{minipage}[b][\bottomstripheight][b]{.48\textwidth}%
+%
+\cblock{BaseColor}{}{NAS with Bregman}{}%
+\small%
+
 
 \includegraphics[width=\textwidth]{atelier/Encoder_3.pdf}
+\vfill%
+\vphantom{.}
 \end{minipage}%
+\end{minipage}%
+%
+
