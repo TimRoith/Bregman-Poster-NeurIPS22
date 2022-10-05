@@ -98,6 +98,11 @@ Sparse Neural Networks}
 % Additional packages
 % ----------------------------------------------------------------------------------------
 \usepackage{subcaption}
+\usepackage{tabularx}
+\newcolumntype{R}{>{\raggedright\arraybackslash}X}
+\usepackage{hhline}
+\usepackage{multirow}
+
 
 
 % ========================================================================================
@@ -133,6 +138,8 @@ Sparse Neural Networks}
 \ifx#4\empty%
 \else%
 \setbeamercolor{bcolor}{fg=black,bg=#2}%
+\noindent%
+\offinterlineskip%
 \begin{beamercolorbox}[wd=\textwidth, sep=5pt]{bcolor}%
 #4%
 \end{beamercolorbox}%

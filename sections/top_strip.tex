@@ -55,23 +55,31 @@ For input and output spaces $\Inp, \Oup$ we denote by $\net_\param:\Inp\to\Oup$ 
 \end{align*}
 Here, $W^l, b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ is an activation function.
 }
-\vspace{.5em}
+\vspace{.0em}
 
 %
 \begin{minipage}[t]{.48\textwidth}%
+\vskip0pt%
+\begin{itemize}%
 \small%
-We are interested in finding parameters that minimize some \textcolor{BaseDarkColor}{\textbf{loss}} $\empLoss:\Param\to\R$. This is done via a gradient-based method, where in each step we replace the loss 
-
-
-
-% training data $\trSet\subset \Inp\times\Oup$ want typically replaces 
+\item We want to minimize some loss \textcolor{BaseDarkColor}{\textbf{loss}} $\empLoss:\Param\to\R$.
+\item Employing batch gradients leads to a \textcolor{BaseDarkColor}{\textbf{stochastic}} version of Bregman Iterations.
+\end{itemize}
 \end{minipage}%
 %
 \hfill%
 %
 \begin{minipage}[t]{.48\textwidth}%
+\vskip0pt%
+\begin{itemize}%
 \small%
-Additionally, we want the parameters to be \textcolor{BaseDarkColor}{\textbf{sparse}} which is enforced, via an regularization functional $\func:\Param\to\R$.
+\item We want to enforce \textcolor{BaseDarkColor}{\textbf{sparsity}}.
+\item This is done via an regularization functional $\func:\Param\to\R$, e.g.,
+%
+\begin{align*}
+\func(\param) &= \sum_{l=1}^L \norm{W^l}_{1,1}.
+\end{align*}
+\end{itemize}%
 \end{minipage}%
 
 
@@ -79,13 +87,22 @@ Additionally, we want the parameters to be \textcolor{BaseDarkColor}{\textbf{spa
 \begin{minipage}[t]{\textwidth}%
 \cblock{BaseColor}{}{The Algorithm}{%
 \small%
-Embedding linearized Bregman iterations in a stochastic framework, we denote by $g:\Param\times\Omega \to \Param$ an unbiased estimator of $\nabla\empLoss$, i.e., $\Exp{g(\param;\omega)} = \nabla\empLoss(\param)$ for some probability space $(\Omega, \P)$. In each step we sample $\omega^k$ from $\P$, set $g^k = g(\theta^k; \omega^k)$ and perform the following update
+\begin{itemize}
+\small
+\item Initialize sparse parameters $\theta_0$ and $v_0\in\partial J(\theta^0)$.
+\item Denote by $g:\Param\times\Omega \to \Param$ an unbiased estimator of $\nabla\empLoss$ for some probability space $(\Omega, \P)$. In the $k$-th iteration we sample $\omega_k$ from $\P$ and set $g_k = g(\theta_k; \omega_k)$.
+\end{itemize}%
+
+\begin{minipage}{.3\textwidth}%
+The \emph{LinBreg} update.
+\end{minipage}%
 %
 \begin{minipage}{.7\textwidth}%
+\normalsize%
 \begin{block}{}%
 \begin{align*}%
-v^{k+1} &:= v^{k} - \tau^{k} g^{k},\qquad&\text{Gradient Step}\\
-\param^{k+1} &:= \prox{\delta J}(\delta v^{k+1}).
+v_{k+1} &:= v_k - \tau_k g_k,\qquad&\text{Gradient Step}\\
+\param_{k+1} &:= \prox{\delta J}(\delta v_{k+1}).
 \qquad&\text{Proximal Step}
 \end{align*}%
 \end{block}%
@@ -202,6 +219,7 @@ Then there exist constants $c,C>0$ such that for every $k\in\N$ the iterates of 
 %
 %
 %
+
 \cblock{BaseColor}{}{Convergence in Norm}{%
 \small%
 Assume that Assumptions 1--4 hold true and that $J(\param^*)<\infty$, where  $\param^*$ is the unique minimizer of $\mathcal{L}$. For every $k\in\N$ and  $d_k:=\E\left[D_{\func_\delta}^{v^{(k)}}(\param^*,\param^{(k)})\right]$ we have
