@@ -7,7 +7,7 @@
 % ..............................................................................
 
 % ..............................................................................
-% Dimesnions and conditionals
+% Dimensions and conditionals
 % -------
 %
 % Define the necessary variables for the template
@@ -102,13 +102,13 @@
 % ..............................................................................
 % Url and Signature for footer.
 % ------------------------------------------------------------------------------
-\def\fau@url{}
-\DeclareOptionBeamer{url}{%
-  \def\fau@url{#1}
+\def\fau@mail{}
+\newcommand{\mail}[1]{%
+  \def\fau@mail{#1}
 }
 
 \def\fau@signature{}
-\DeclareOptionBeamer{signature}{%
+\newcommand{\signature}[1]{%
   \def\fau@signature{#1}
 }
 % ------------------------------------------------------------------------------
@@ -116,8 +116,6 @@
 % ..............................................................................
 % Process options.
 % ------------------------------------------------------------------------------
-%\ExecuteOptionsBeamer{url=www.fau.de}
-\ExecuteOptionsBeamer{signature=}
 \ProcessOptionsBeamer
 \selectcolormodel{rgb}
 \mode<presentation>
@@ -299,9 +297,9 @@
 %
 \begin{beamercolorbox}[dp=0pt,sep = \fau@poster@FootLineSkip,%
 					   leftskip= 0pt,%
-					   wd=\dimexpr.5\paperwidth-\fau@poster@SideBarWidthLeft,%
-  					   ht=\dimexpr\fau@poster@FootHeight]{}%
-\normalsize\textbf{\fau@url}%
+					   wd=\dimexpr.7\paperwidth-\fau@poster@SideBarWidthLeft,%
+  					   ht=\dimexpr\fau@poster@FootHeight]{FAU}%
+\footnotesize\fau@signature\hfill%
 %
 \end{beamercolorbox}%
 \hfil%
@@ -311,10 +309,10 @@
 \begin{beamercolorbox}[dp=0pt,%
 					   sep = \fau@poster@FootLineSkip,%
 					   rightskip=\dimexpr\fau@poster@SideBarWidthLeft,%
-					   wd=\dimexpr.5\paperwidth-\fau@poster@SideBarWidthRight,%
-  					   ht=\dimexpr\fau@poster@FootHeight]{}%
+					   wd=\dimexpr.3\paperwidth-\fau@poster@SideBarWidthRight,%
+  					   ht=\dimexpr\fau@poster@FootHeight]{FAU}%
 \hfill%
-\normalsize\textbf{\fau@signature}%
+\normalsize\textbf{\fau@mail}%
 \end{beamercolorbox}%
 \hfil%
 \begin{beamercolorbox}[dp=0pt, sep = 0pt,

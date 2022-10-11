@@ -12,7 +12,7 @@
 %
 \cblock{BaseColor}{}{Training Results}{}%
 \small%
-We first initialize a feed-forward architecture using a small percentage of its parameters. We then respectively train the net with standard SGD, sparsity enforcing ProxGD and \emph{LinBreg}.
+We initialize a feed-forward architecture using a small percentage of its parameters. We then respectively train the net with standard SGD, sparsity enforcing ProxGD and \emph{LinBreg}.
 \begin{figure}
 \begin{minipage}{.7\textwidth}%
 \includegraphics[width=\textwidth, trim= 0cm 0cm 0cm 0cm,clip]{atelier/SGDvsBreg_small.pdf}
@@ -25,7 +25,10 @@ The curves show the averaged train accuracies sparsity.}
 %
 %
 %
-Additionally, we compare ourselves to a variant of the LASSO \cite{??} regularizer on the CIFAR10 \cite{Krizhevsky09} dataset, employing a ResNet-18 \cite{he2015delving}.
+\vfill%
+Additionally, we compare ourselves to a variant of the LASSO \cite{tibshirani1996regression} regularizer on the CIFAR10 dataset, employing a ResNet-18.
+% \cite{Krizhevsky09} 
+%\cite{he2015delving}.
 %
 %
 %
@@ -55,7 +58,7 @@ Test Acc&Train Acc\\
 \end{minipage}%
 %
 \begin{minipage}{.3\textwidth}%
-\caption{Sparsity levels and accuracies on the CIFAR-10 data set.}\label{tab:CIFAR}
+\caption{\small Sparsity levels and accuracies on the CIFAR-10 data set.}\label{tab:CIFAR}
 \end{minipage}
 \end{table}
 %
@@ -64,8 +67,6 @@ Test Acc&Train Acc\\
 %
 %
 %
-\vfill%
-\vphantom{.}
 \end{minipage}%
 %
 \hfill%
@@ -93,11 +94,11 @@ Test Acc&Train Acc\\
 %
 \cblock{BaseColor}{}{NAS with Bregman}{}%
 \small%
-We initialize a sparse multi-layer perceptron with the same amount of active neurons in each layer. Training this net in order to perform a denoising task reveals an autoencoder architecture. 
+Initializing a sparse multi-layer perceptron and training this net in order to perform a denoising task reveals an autoencoder architecture \cite{bungert21}. 
 
 \begin{figure}%
 \begin{minipage}{.3\textwidth}%
-\caption{Architecture design for denoising: \LinBreg{} unveils an autoencoder.}
+\caption{\small Architecture design for denoising: \LinBreg{} unveils an autoencoder.}
 \end{minipage}%
 \begin{minipage}{.7\textwidth}%
 \includegraphics[width=\textwidth]{atelier/Encoder_3.pdf}
@@ -106,14 +107,11 @@ We initialize a sparse multi-layer perceptron with the same amount of active neu
 %
 %
 %
+\vfill%
 \cblock{BaseColor}{BaseColorD}{\normalsize References}{%
-\AtNextBibliography{\footnotesize}
+\AtNextBibliography{\tiny}
 \printbibliography[heading=none]
 }
-
-
-\vfill%
-\vphantom{.}
 \end{minipage}%
 \end{minipage}%
 %
