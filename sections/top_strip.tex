@@ -36,7 +36,7 @@
 \includegraphics[width=\textwidth,trim=0.35cm 0.35cm 0.2cm 0.35cm,clip]{atelier/FMNIST/FM_e100.pdf}%
 \caption{Iteration 100}
 \end{subfigure}
-\caption{Inverse scale space character of \LinBreg{} \cite{Bungert22} visualized through feature maps of a convolutional neural network. Active kernels are added in the training process.}
+\caption{Inverse scale space character of the \LinBreg{} algorithm \cite{Bungert22} visualized through feature maps of a convolutional neural network. Active kernels are successively added in the training process.}
 \label{fig:kernels}
 \vspace{-10pt}
 \end{figure}
@@ -45,18 +45,19 @@
 %
 %
 %
-\vspace{1cm}%
+\vspace{.5cm}%
 
 \cblock{BaseColor}{}{Bregman Training in a Nutshell}{%
 \footnotesize%
 \vspace{.1em}%
 
-For input and output spaces $\Inp, \Oup$ we denote by $\net_\param:\Inp\to\Oup$ a neural network parameterized by $\param$ from some parameter space $\Param$. For a feed-forward have that $\net_\param = \Phi^L\circ\ldots\circ\Phi^1$ where the $l$-th layer is given by
+For input and output spaces $\Inp, \Oup$ we denote by $\net_\param:\Inp\to\Oup$ a neural network parameterized by $\param$ in some parameter space $\Param$. We denote by $W^l$ and $b^l$ the weights and biases of the $l$-th layer.
+%For a feed-forward network we have that $\net_\param = \Phi^L\circ\ldots\circ\Phi^1$ where the $l$-th layer is given by
 %
-\begin{align*}
-\Phi^L: x\mapsto \sigma\left(W^l x + b^l\right).
-\end{align*}
-Here, $W^l, b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ is an activation function.
+% \begin{align*}
+% \Phi^L: x\mapsto \sigma\left(W^l x + b^l\right).
+% \end{align*}
+% Here, $W^l$ and $b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ is an activation function.
 }
 \vspace{.5em}
 
@@ -65,7 +66,7 @@ Here, $W^l, b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ 
 \vskip0pt%
 \begin{itemize}%
 \small%
-\item We want to minimize some loss \textcolor{BaseDarkColor}{\textbf{loss}} $\empLoss:\Param\to\R$.
+\item We want to minimize some \textcolor{BaseDarkColor}{\textbf{loss}} $\empLoss:\Param\to\R$.
 \item Employing batch gradients leads to a \textcolor{BaseDarkColor}{\textbf{stochastic}} version of Bregman Iterations \cite{yin2008bregman}.
 \end{itemize}
 \end{minipage}%
@@ -77,14 +78,16 @@ Here, $W^l, b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ 
 \begin{itemize}%
 \small%
 \item We want to enforce \textcolor{BaseDarkColor}{\textbf{sparsity}}.
-\item This is done via an \textcolor{BaseDarkColor}{\textbf{regularization}} functional $\func:\Param\to\R$, e.g.,
+\phantom{Some much longer text.}
+\item This is done through \textcolor{BaseDarkColor}{\textbf{implicit regularization}} with a functional $\func:\Param\to(-\infty,\infty]$, e.g.,
 %
+\vspace{5pt}
 \begin{align*}
 \func(\param) &= \sum_{l=1}^L \norm{W^l}_{1,1}.
 \end{align*}
 \end{itemize}%
 \end{minipage}%
-\vspace{1cm}
+\vspace{25pt}
 
 %
 \begin{minipage}[t]{\textwidth}%
@@ -100,10 +103,10 @@ Here, $W^l, b^l$ denote the weights and biases of the $l$-th layer and $\sigma$ 
 \normalsize%
 \colorlet{FAUBlueA}{FAUBlue!62.5}
 \setbeamercolor{hcolor}{fg=white,bg=BaseColorB}%
-\begin{beamercolorbox}[wd=\textwidth, ht=3.5cm, sep=0pt,dp=0pt,center]{hcolor}%
+\begin{beamercolorbox}[wd=\textwidth, ht=4cm, sep=0pt,dp=0pt,center]{hcolor}%
 \vbox to 3.5cm{%
 \vfill%
-LinBreg Update
+\LinBreg{} Update
 \vfill%
 }%
 \end{beamercolorbox}%
@@ -113,7 +116,7 @@ LinBreg Update
 \vskip0pt%
 \normalsize%
 \setbeamercolor{hcolor}{fg=black,bg=BaseColorD}%
-\begin{beamercolorbox}[wd=\textwidth, ht=3.5cm, sep=0pt,dp=0pt]{hcolor}%
+\begin{beamercolorbox}[wd=\textwidth, ht=4cm, sep=0pt,dp=0pt]{hcolor}%
 \begin{align*}%
 v^{(k+1)} &:= v^{(k)} - \tau^{(k)} g^{(k)},\qquad&\text{Gradient Step}\\
 \param^{(k+1)} &:= \prox{\delta J}(\delta v^{(k+1)}).
@@ -121,6 +124,10 @@ v^{(k+1)} &:= v^{(k)} - \tau^{(k)} g^{(k)},\qquad&\text{Gradient Step}\\
 \end{align*}%
 \end{beamercolorbox}%
 \end{minipage}%
+
+\vspace{20pt}
+This can be interpreted as \textcolor{BaseDarkColor}{\textbf{mirror descent}} in a $\func$-dependent metric.
+
 }%
 \end{minipage}%
 \end{minipage}%
@@ -159,23 +166,23 @@ v^{(k+1)} &:= v^{(k)} - \tau^{(k)} g^{(k)},\qquad&\text{Gradient Step}\\
 \vskip 0pt%
 %
 %
-\cblock{BaseColor}{}{Background and Assumptions}{}%
+\cblock{BaseColor}{}{Background and Assumptions}{%
+%\offinterlineskip%
 %Section for assumptions
-\begin{minipage}{\textwidth}%
-\small%
-The Bregman distance of two points $\param,\overline{\param}\in\Param$ with respect to a convex and proper functional $\func:\Param\to(-\infty,\infty]$ is given as
+\footnotesize%
+The Bregman distance of two points $\param,\tilde{\param}\in\Param$ with respect to a functional $\func:\Param\to(-\infty,\infty]$ on a Hilbert space $\Param$ is defined as
 %
 \begin{align*}
-D^\sg_\func(\overline{\param},\param) := \func(\overline \param)-\func({\param})-\langle\sg,\overline\param-{\param}\rangle,\quad\sg\in\partial\func(\param).
+D^\sg_\func(\tilde{\param},\param) &:= \func(\tilde \param)-\func({\param})-\langle\sg,\tilde\param-{\param}\rangle,\quad\sg\in\partial\func(\param).
 \end{align*}
 %
-\vspace{.2em}
+\vspace{0pt}%
 
 \begin{minipage}[t]{.48\textwidth}%
 \footnotesize%
-\textbf{Assumption 1: The Loss function}
-
-We assume that $\empLoss\geq 0$, $\empLoss$ is continuously differentiable and that for all $\param,\tilde\param\in\Param$ we have
+\textbf{Assumption 1: $L$-Smoothness}\\
+There exists $L>0$ such that for all $\param,\tilde\param\in\Param$
+\vspace{5pt}
 \begin{align*}
 \norm{\nabla\empLoss(\tilde\param)-\nabla\empLoss(\param)}\leq L \norm{\tilde\param-\param}.
 \end{align*}%
@@ -185,42 +192,39 @@ We assume that $\empLoss\geq 0$, $\empLoss$ is continuously differentiable and t
 %
 \begin{minipage}[t]{.48\textwidth}%
 \footnotesize%
-\textbf{Assumption 2: Bounded Variance}
-
-
-There exists a constant $\sigma>0$ such that for any $\param\in\Param$ it holds
+\textbf{Assumption 2: Bounded Variance}\\
+There exists $\sigma>0$ such that for all $\param\in\Param$
+%\vspace{5pt}
 \begin{align*}
 \E\left[\norm{g(\param;\cdot)-\nabla\empLoss(\param)}^2\right] \leq \sigma^2.
 \end{align*}%
-\end{minipage}%
-\end{minipage}%
+\end{minipage}\hfill%
 %
-\vspace{.5em}
-
+\\[25pt]%
 %
 \begin{minipage}{\textwidth}%
 \small%
 \begin{minipage}[t]{.48\textwidth}%
 \footnotesize%
-\textbf{Assumption 3: Regularizer}
-
-We assume that $\func:\Param\to(-\infty,\infty]$ is a convex, proper, and lower semicontinuous functional on the Hilbert space $\Param$.%
+\textbf{Assumption 3: Regularizer}\\
+The functional $\func:\Param\to(-\infty,\infty]$ is convex, proper, and lower semicontinuous
 \end{minipage}%
 %
 \hfill%
 %
 \begin{minipage}[t]{.48\textwidth}%
 \footnotesize%
-\textbf{Assumption 4: Strong Convexity}
-
-We have that for all $\param,\tilde\param\in\Param$
+\textbf{Assumption 4: Strong Convexity}\\
+There exists $\mu>0$ such that for all $\param,\tilde\param\in\Param$
+\vspace{5pt}
 \begin{align*}
 \empLoss(\tilde\param) &\geq \empLoss(\param) + \langle\nabla\empLoss(\param),\tilde\param - \param\rangle
 + \frac{\mu}{2}\norm{\tilde\param-\param}^2.
 \end{align*}%
 \end{minipage}%
-\end{minipage}%
-\vspace{66pt}
+\end{minipage}\hfill%
+}\hfill%
+\vspace{-25pt}
 
 %
 %
@@ -229,34 +233,46 @@ We have that for all $\param,\tilde\param\in\Param$
 \cblock{BaseColor}{}{Loss Decay}{%
 % section for loss decay
 \small
-Assume that Assumptions 1--3 hold true, let $\delta>0$, then there exist constants $c,C>0$ such that for every $k\in\N$ the iterates satisfy
+Assume that Assumptions 1--3 hold true and let $\delta>0$. Then there exist constants $c,C>0$ such that for every $k\in\N$ the iterates satisfy
 \begin{block}{}
 \begin{align*}
 \textcolor{BaseColor}{\E\left[\empLoss(\param^{(k+1)})\right]} &+
 %
-\frac{1}{\tau^{(k)}}\E\left[ D^\mathrm{sym}_\func(\param^{(k+1)},\param^{(k)})\right]\\
+% \frac{1}{\tau^{(k)}}\E\left[ D^\mathrm{sym}_\func(\param^{(k+1)},\param^{(k)})\right]\\
+% %
+% &+
+% \frac{C}{2\delta\tau^{(k)}}\E\left[\norm{\param^{(k+1)}-\param^{(k)}}^2\right] %\\
+\frac{C}{\tau^{(k)}}
+\E\left[
+D_{J_\delta}^{v^{(k+1)}}(\param^{(k)},\param^{(k+1)})
++
+D_{J_\delta}^{v^{(k)}}(\param^{(k+1)},\param^{(k)})
+\right]
+\\
 %
-&+
-\frac{C}{2\delta\tau^{(k)}}\E\left[\norm{\param^{(k+1)}-\param^{(k)}}^2\right] %\\
-%
-\leq
-\textcolor{BaseColor}{\E\left[\empLoss(\param^{(k)})\right]} + \tau^{(k)}\delta\frac{\sigma^2}{2c}.
+&\leq
+\textcolor{BaseColor}{\E\left[\empLoss(\param^{(k)})\right]} + \tau^{(k)}\delta\frac{\sigma^2}{2c},
 \end{align*}
 \end{block}
 %
-\footnotesize%
-Here, the step sizes are non-increasing and satisfy $\tau^{(k)} \leq \frac{2}{\delta L}$, $\ell^2 \ni (\tau^{(k)}) \notin \ell^1$.
+\vspace{20pt}
+%\footnotesize%
+where $\func_\delta := \func + \frac{1}{2\delta}\norm{\cdot}^2$ is the elastic net regularization of $\func$. Additionally we assumed that the step sizes satisfy $\tau^{(k)} \leq \frac{2}{\delta L}$.
 }%
 %
 %
 %
-\vspace{66pt}%
+\vspace{45pt}%
 
 \cblock{BaseColor}{}{Convergence in Norm\phantom{THAh}}{%
 \small%
-Assume that Assumptions 1--4 hold true and that $J(\param^*)<\infty$, where  $\param^*$ is the unique minimizer of $\mathcal{L}$. For every $k\in\N$ and  $d_k:=\E\left[D_{\func_\delta}^{v^{(k)}}(\param^*,\param^{(k)})\right]$ we have
+Assume that Assumptions 1--4 hold true, that the step sizes are non-increasing, $\tau \in \ell^2\setminus\ell^1$, and fulfill $\tau^{(k)} \leq \frac{\mu}{2\delta L^2}$, and that $J(\param^*)<\infty$, where  $\param^*$ is the unique minimizer of $\mathcal{L}$. 
+For every $k\in\N$ and  $d_k:=\E\left[D_{\func_\delta}^{v^{(k)}}(\param^*,\param^{(k)})\right]$ we have\hfill%
 %
-\begin{block}{}
+%\vspace{-10pt}
+
+\setbeamercolor{bcolor}{fg=black,bg=BaseColorD}%
+\begin{beamercolorbox}[wd=\textwidth, sep=5pt]{bcolor}%
 \begin{align*}
 d_{k+1} - d_k
 + \frac{\mu}{4}\tau^{(k)}
@@ -264,12 +280,14 @@ d_{k+1} - d_k
 %
 \leq  \frac{\sigma}{2}\left((\tau^{(k)})^2 +\Exp{\norm{\param^{(k)} - \param^{(k+1)}}^2}\right).
 \end{align*}
-\end{block}
+\end{beamercolorbox}%
 %
 Furthermore, there exists a subsequence $\param^{(k_j)}$ such that
 \begin{align*}
 \lim_{j\to\infty}\E\left[\norm{\param^*-\param^{(k_j)}}^2\right] = 0.
 \end{align*}
+%
+If $\Param$ is finite dimensional and $\func$ is the $\ell^1$-norm, the whole sequence converges.
 }%
 \end{minipage}%
 }%

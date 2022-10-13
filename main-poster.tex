@@ -45,8 +45,8 @@ Sparse Neural Networks}
 \institute[FAU]{Friedrich-Alexander Universität Erlangen-Nürnberg, Department Mathematik}
 \date{\today}
 \signature{%
-$^1$Hausdorff Center for Mathematics, University of Bonn
-Endenicher Allee 62, Villa Maria 53115 Bonn, Germany\\
+$^1$Hausdorff Center for Mathematics, University of Bonn,
+Endenicher Allee 62, Villa Maria, 53115 Bonn, Germany\\
 
 $^2$Department Mathematik, Friedrich–Alexander Universität Erlangen–Nürnberg,
 Cauerstraße 11, 91058 Erlangen, Germany
@@ -60,6 +60,7 @@ Cauerstraße 11, 91058 Erlangen, Germany
 \usepackage{csquotes}
 \usepackage[style=alphabetic, %alternatively: numeric, numeric-comp, and other from biblatex
 			defernumbers=true,
+			sorting=ydnt,
 			useprefix=true,%
 			giveninits=true,%
 			hyperref=true,%
@@ -71,7 +72,7 @@ Cauerstraße 11, 91058 Erlangen, Germany
 			doi=true,%
 			isbn=false,%
 			url=false,%
-			eprint=false,%
+			eprint=true,%
 			backend=biber%
 		   ]{biblatex}
 \addbibresource{bibliography.bib}
@@ -133,13 +134,13 @@ Cauerstraße 11, 91058 Erlangen, Germany
 % \setlength{\fboxsep}{0pt}%
 % \textcolor{white}{\strut#2}\hfill}}%
 % }
-
+\newsavebox{\Ibox}%
 \newcommand{\cblock}[4]{%
 \ifx#3\empty%
 \else%
 \setbeamercolor{hcolor}{fg=white,bg=#1}%
 \begin{beamercolorbox}[wd=\textwidth, sep=5pt]{hcolor}%
-#3\phantom{Ag}%
+#3\hfill\phantom{Ag}%
 \end{beamercolorbox}%
 \fi%
 \ifx#4\empty%
@@ -147,8 +148,15 @@ Cauerstraße 11, 91058 Erlangen, Germany
 \setbeamercolor{bcolor}{fg=black,bg=#2}%
 \noindent%
 \offinterlineskip%
-\begin{beamercolorbox}[wd=\textwidth, sep=5pt]{bcolor}%
-#4%
+\begin{beamercolorbox}[wd=\textwidth, sep=0pt]{bcolor}%
+\newdimen\Iheight%
+\savebox{\Ibox}{\vbox{#4}}%
+\Iheight=\ht\Ibox \advance\Iheight by \dp\Ibox%
+\vbox to \dimexpr\Iheight+5pt{%
+\vskip5pt%
+%\vfill%
+\tbox{\usebox{\Ibox}}%
+}%
 \end{beamercolorbox}%
 \fi%
 }%
